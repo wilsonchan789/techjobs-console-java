@@ -2,8 +2,6 @@ package org.launchcode.techjobs.console;
 
 import java.util.*;
 
-import static java.util.Collections.*;
-
 /**
  * Created by LaunchCode
  */
@@ -61,14 +59,18 @@ public class TechJobs {
                 System.out.println("\nSearch term: ");
                 String searchTerm = in.nextLine();
 
+                // check which search the user is using
                 if (searchField.equals("all")) {
+                    // searching in all
                     if (JobData.findByValue(searchTerm).isEmpty()) {
                         System.out.println(searchTerm + " is not in the job files.");
                     } else {
                         printJobs(JobData.findByValue(searchTerm));
                     }
+                // searching in column with no result
                 } else if (JobData.findByColumnAndValue(searchField, searchTerm).isEmpty()) {
                     System.out.println(searchTerm + " is not in the job files.");
+                // searching in column with result of value in column
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -117,8 +119,11 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        // Print each job separated
         for (int i = 0; i < someJobs.size(); i++) {
             System.out.println("*****");
+
+            // Access each Hashmap item for key and value
             for (Map.Entry<String, String> job : someJobs.get(i).entrySet()) {
                 System.out.println(job.getKey() + " : " + job.getValue());
             }
